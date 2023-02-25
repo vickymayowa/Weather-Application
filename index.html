@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <title>Weather Application</title>
+</head>
+<body style="background-image: url(./414f60aad193d61c656ed52f2989366a.gif);background-repeat: no-repeat;background-size: cover;height: 600px;">
+    <div id="loading"></div>
+    <div class="cotaineer text-center fw-lighter fluid d-sm-block d-lg-block ">
+        <div class="section1 col-lg-6 col-sm-12 mx-auto">
+            <h4 class="fw-lighter text-white mt-5 ">Weather App</h4>
+            <div class="container-fluid ms-1 w-100 mt-3">
+                <input type="text" placeholder="Search Your location here" id="Userinput"  oninput="gen()" class="form-control">
+            </div>
+        </div>
+        <section class="semi-text" style="font-size: 35px;">
+            <h3 class="text-white fw-lighter" id="disp" style="font-size: sans-serif; font-family: Verdana, Geneva, Tahoma, sans-serif;"></h3>
+            <h6 class="fw-ligthter text-white" id="local" style="font-size: 30px;"></h6>
+            <span id="lopo"></span>
+        </section>
+        <div class="section2">
+            <div class="weather-details mt-4 fw-lighter text-white" style="font-size: 35px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+                Weather Details
+            </div>
+            <div class="text-area fw-lighter rounded-3" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
+                <ul style="list-style:none;font-size: 35px;">
+                <li class="text-start">Description
+                    <span id="descip" class="float-end ms-2"></span></li>
+                <li class="text-start">Location
+                    <span id="locate" class="float-end"></span></li>
+                <li class="text-start">Humidity
+                <span id="humi" class="float-end"></span></li>
+                <li class="text-start">Wind
+                <span id="wid" class="float-end"></span></li>
+                </ul>
+                <hr>
+            </div>
+            <div class="text-area fw-lighter rounded-3" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
+                <ul style="list-style:none;font-size: 35px;">
+                <li class="text-start">Min
+                    <span id="maxi" class="float-end"></span></li>
+                <li class="text-start">Max
+                    <span id="mani" class="float-end"></span></li>
+                <li class="text-start">Feels
+                    <span id="fall" class="float-end"></span></li>
+                <li class="text-start">Pressure
+                    <span id="pressure" class="float-end"></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <section class="proflie-tags" style="color: black;">
+        <footer class="float-end me-3 fw-lighter text-center" style="margin-top: 100px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Designed by <a href="https://www.linkedin.com/in/adebanjo-favour-217b1a251/" class="text-dark">VickyWebDeveloper</a>
+        </footer>
+    </section>
+    <script>
+          const gen = async()=>{
+            let keyy = '8f9442cc962b60a665deb4d7dfa99529'
+            let endPoint1 = `https://api.openweathermap.org/data/2.5/weather?lat=57&lon=-2.15&appid=${keyy}`
+            let endPoint = `https://api.openweathermap.org/data/2.5/weather?q=${Userinput.value}&appid=${keyy}&units=metric`    
+            let come = await fetch(endPoint)
+            let vic = await come.json()
+            console.log(vic)
+            let alldeydo = Math.round(vic.main.temp)
+            let loc = vic.name
+            let col = vic.name
+            let lup = vic.sys.country
+            let wer = vic.weather[0].main
+            let Humid = vic.main.humidity   
+            let kin = vic.wind.speed
+            let min = vic.main.temp_max
+            let nani = vic.main.temp_min
+            let full = vic.main.feels_like
+            let pes = vic.main.pressure
+            let des = vic.weather[0].main
+            console.log(alldeydo);
+            disp.innerHTML=`${alldeydo}°C`
+            locate.innerHTML=`${loc}`
+            humi.innerHTML= `${Humid}%`
+            wid.innerHTML= `${kin}m/s`
+            mani.innerHTML= `${nani}°C`
+            lopo.innerHTML= `${wer}`
+            local.innerHTML=  `${col}, ${lup}`
+            pressure.innerHTML = `${pes}hPa`
+            maxi.innerHTML= `${min}°C`
+            fall.innerHTML= `${full}°C`
+            descip.innerHTML=`${des}`
+    
+        }
+    </script>
+</body>
+</html>
